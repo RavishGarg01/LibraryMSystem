@@ -29,15 +29,19 @@ public class BookService {
 	
 	//Create Book
 	
-	public void  createBook(int id,BookDto book) {
-		 Optional<Transection> t=tr.findById(id);
-		 Transection t1=t.get();
+//	public void  createBook(int id,BookDto book) {
+//		 Optional<Transection> t=tr.findById(id);
+//		 Transection t1=t.get();
+//		Book b1=modelMapper.map(book, Book.class);
+//		b1.setTransection(t1);
+//		this.br.save(b1);
+//		
+//	}
+	public void  createBook(BookDto book) {
 		Book b1=modelMapper.map(book, Book.class);
-		b1.setTransection(t1);
 		this.br.save(b1);
 		
 	}
-	
 	
 	public BookDto getById(int id) {
 		Optional<Book> b1= this.br.findById(id);

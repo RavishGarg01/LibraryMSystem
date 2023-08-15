@@ -23,10 +23,16 @@ public class BookController {
 	@Autowired
 	private BookService bs;
 	
-	@PostMapping("/transection/{id}/book")
-	public void createNewBook(@PathVariable("id")int id,@RequestBody BookDto book) {
-		
-		this.bs.createBook(id,book);
+//	@PostMapping("/transection/{id}/book")
+//	public void createNewBook(@PathVariable("id")int id,@RequestBody BookDto book) {
+//		
+//		this.bs.createBook(id,book);
+//		
+//	}
+	@PostMapping("/book")
+	public void createNewBook(@RequestBody BookDto book) {
+		System.out.println("here");
+		this.bs.createBook(book);
 		
 	}
 	
@@ -42,14 +48,14 @@ public class BookController {
     	
     }
 	
-	@GetMapping("/transection/{id}/book")
-	public List<BookDto> getBooksWithTransection(@PathVariable("id")int id){
-		return this.bs.getBooksByTransection(id);
-	}
-	
 	@PutMapping("/book/{id}")
 	public void updateBook(@PathVariable("id")int id,@RequestBody Book book) {
 		this.bs.updateBook(id,book);
+	}
+	
+	@GetMapping("/transection/{id}/book")
+	public List<BookDto> getBooksWithTransection(@PathVariable("id")int id){
+		return this.bs.getBooksByTransection(id);
 	}
 
 }
