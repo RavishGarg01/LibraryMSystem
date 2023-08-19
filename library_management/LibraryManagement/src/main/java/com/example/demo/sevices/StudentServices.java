@@ -36,13 +36,19 @@ public class StudentServices {
 		this.sr.save(st);
 		
 	}
-	public Student getSingleStudent(int id) {
+	
+	
+	//Get single student 
+	
+	public StudentDto getSingleStudent(int id) {
 		
 	Optional<Student> s=this.sr.findById(id);
 		
 		Student student=s.get();
 		
-		return student;
+		StudentDto sdto=modelMapper.map(student, StudentDto.class);
+		
+		return sdto;
 		
 	}
 	

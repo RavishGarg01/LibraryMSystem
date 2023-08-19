@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Transection {
@@ -18,19 +19,15 @@ public class Transection {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int referenceId;
-	
-	private String IssuedTo;
-	
+
 	private String Issuedate;
-	
-	private String Duedate;
 	
 	private int fine;
 	
-	@OneToMany(mappedBy="transection",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
-	private List<Book> book;
-	
-	@ManyToOne
+//	@ManyToOne
+//	private Book book;
+//	
+	@ManyToOne(cascade=CascadeType.ALL)
 	private Student student;
 
 	public Transection() {
@@ -38,15 +35,12 @@ public class Transection {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Transection(int referenceId, String issuedTo, String issuedate, String duedate, int bookId, String name,
-			String author,List<Book> book,Student student) {
+	public Transection(int referenceId, String issuedate, int fine, Student student) {
 		super();
 		this.referenceId = referenceId;
-		IssuedTo = issuedTo;
 		Issuedate = issuedate;
-		Duedate = duedate;
-		this.book=book;
-		this.student=student;
+		this.fine = fine;
+		this.student = student;
 	}
 
 	public int getReferenceId() {
@@ -57,14 +51,6 @@ public class Transection {
 		this.referenceId = referenceId;
 	}
 
-	public String getIssuedTo() {
-		return IssuedTo;
-	}
-
-	public void setIssuedTo(String issuedTo) {
-		IssuedTo = issuedTo;
-	}
-
 	public String getIssuedate() {
 		return Issuedate;
 	}
@@ -72,17 +58,6 @@ public class Transection {
 	public void setIssuedate(String issuedate) {
 		Issuedate = issuedate;
 	}
-
-	public String getDuedate() {
-		return Duedate;
-	}
-
-	public void setDuedate(String duedate) {
-		Duedate = duedate;
-	}
-
-	
-	
 
 	public int getFine() {
 		return fine;
@@ -92,15 +67,6 @@ public class Transection {
 		this.fine = fine;
 	}
 
-	public List<Book> getBook() {
-		return book;
-	}
-
-	public void setBook(List<Book> book) {
-		this.book = book;
-	}
-
-	
 	public Student getStudent() {
 		return student;
 	}
@@ -108,13 +74,16 @@ public class Transection {
 	public void setStudent(Student student) {
 		this.student = student;
 	}
-	
 
 	@Override
 	public String toString() {
-		return "Book [referenceId=" + referenceId + ", IssuedTo=" + IssuedTo + ", Issuedate=" + Issuedate + ", Duedate="
-				+ Duedate + ", bookId=" + "Books="+book+"student" + student + "]";
+		return "Transection [referenceId=" + referenceId + ", Issuedate=" + Issuedate + ", fine=" + fine + ", student="
+				+ student + "]";
 	}
+
+	
+
+	
 	
 	
 	

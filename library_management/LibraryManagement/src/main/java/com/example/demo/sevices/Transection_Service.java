@@ -11,7 +11,6 @@ import com.example.demo.dtos.TransectionDto;
 import com.example.demo.entites.Book;
 import com.example.demo.entites.Student;
 import com.example.demo.entites.Transection;
-import com.example.demo.repositories.BookRepo;
 import com.example.demo.repositories.StudentRepo;
 import com.example.demo.repositories.TransRepo;
 
@@ -21,7 +20,11 @@ public class Transection_Service {
 	@Autowired
 	private TransRepo tr;
 	
+	@Autowired
 	private StudentRepo sr;
+	
+//	@Autowired
+//	private BookRepo br;
 	
 	@Autowired
 	ModelMapper modelMapper;
@@ -31,32 +34,48 @@ public class Transection_Service {
 		return this.tr.findAll();
 	}
 	
+	
 	public TransectionDto getTransectionById(int id) {
 		Optional<Transection> op=this.tr.findById(id);
 		
 		Transection t1=op.get();
+//		Book b=t1.getBook();
+		Student s=t1.getStudent();
+		
 		
 		TransectionDto tdto=modelMapper.map(t1, TransectionDto.class);
+//		tdto.setBookid(b.getBookId());
+		tdto.setStudentid(s.getId());
 		
 		return tdto;
 		
 	}
 	
 	
-	//Create Transection
+	//Create Transaction
 	
-	public Transection CreateTransection(TransectionDto t1) {
+	public TransectionDto CreateTransection(TransectionDto t1) {
+		System.out.println("I an currently here");
+		Integer sid= t1.getStudentid();
+//		int bid=t1.getBookid();
 		
 		
-	    
+		//Student
+		Student student=this.sr.findById(sid).get();
+		
+		
+		//BOOK
+//		Book book=this.br.findById(bid).get();
+		
+		
+		
 		Transection t=modelMapper.map(t1, Transection.class);
-		
+//		t.setBook(book);
+		t.setStudent(student);
 		
 		Transection saved=this.tr.save(t);
 		
-		
-		
-		return saved;
+		return t1;
 	}
 	
 }

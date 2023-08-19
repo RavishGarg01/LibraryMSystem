@@ -2,63 +2,50 @@ package com.example.demo.dtos;
 
 public class TransectionDto {
 	
-    
+	private int studentid;
 	
-	private String IssuedTo;
-	
-	private String Issuedate;
-	
-	private String Duedate;
-	
+//	private int bookid;
 	
 	private int fine;
-
+	
 	private StudentDto student;
+	
+
+	
 //	private BookDto bookDto;
+	
 	public TransectionDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public TransectionDto( String issuedTo, String issuedate, String duedate, 
-		    int fine,StudentDto student) {
+	public TransectionDto(int studentid, int fine,StudentDto student) {
 		super();
-		
-		IssuedTo = issuedTo;
-		Issuedate = issuedate;
-		Duedate = duedate;
+		this.studentid=studentid;
+//		this.bookid=bookid;
 		this.fine = fine;
 		this.student=student;
 		
 	}
 
-
-
-	public String getIssuedTo() {
-		return IssuedTo;
-	}
-
-	public void setIssuedTo(String issuedTo) {
-		IssuedTo = issuedTo;
-	}
-
-	public String getIssuedate() {
-		return Issuedate;
-	}
-
-	public void setIssuedate(String issuedate) {
-		Issuedate = issuedate;
-	}
-
-	public String getDuedate() {
-		return Duedate;
-	}
-
-	public void setDuedate(String duedate) {
-		Duedate = duedate;
-	}
-
 	
+	
+//	public int getBookid() {
+//		return bookid;
+//	}
+//
+//	public void setBookid(int bookid) {
+//		this.bookid = bookid;
+//	}
+
+	public int getStudentid() {
+		return studentid;
+	}
+
+	public void setStudentid(int studentid) {
+		this.studentid = studentid;
+	}
+
 	public int getFine() {
 		return fine;
 	}
@@ -80,9 +67,11 @@ public class TransectionDto {
 
 	@Override
 	public String toString() {
-		return "TransectionDto [  IssuedTo=" + IssuedTo + ", Issuedate=" + Issuedate
-				+ ", Duedate=" + Duedate + ", fine=" + fine + "student="+ student + "]";
+		return "TransectionDto [studentid=" + studentid + ", fine=" + fine + ", student="
+				+ student + "]";
 	}
+
+	
 	
 
 	

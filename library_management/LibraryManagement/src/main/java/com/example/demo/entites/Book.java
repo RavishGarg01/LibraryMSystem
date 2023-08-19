@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Book {
@@ -25,21 +26,21 @@ public class Book {
 	
 	private boolean Isissued;
 
-	@ManyToOne
-	private Transection transection;
+//	@OneToMany(mappedBy="book",cascade=CascadeType.ALL)
+//	private List<Transection> transections;
 
 	public Book() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Book(int bookId, String name, String author, boolean isissued,Transection transection) {
+	public Book(int bookId, String name, String author, boolean isissued) {
 		super();
 		BookId = bookId;
 		this.name = name;
 		this.author = author;
 		Isissued = isissued;
-		this.transection=transection;
+//		this.transections=transections;
 	}
 
 	public int getBookId() {
@@ -74,18 +75,20 @@ public class Book {
 		Isissued = isissued;
 	}
 
-	public Transection getTransection() {
-		return transection;
-	}
-
-	public void setTransection(Transection transection) {
-		this.transection = transection;
-	}
+//	public List<Transection> getTransection() {
+//		return transections;
+//	}
+//
+//	public void setTransection(List<Transection> transections) {
+//		this.transections = transections;
+//	}
 
 	@Override
 	public String toString() {
-		return "Book [BookId=" + BookId + ", name=" + name + ", author=" + author + ", Isissued=" + Isissued + "Transection="+transection+"]";
+		return "Book [BookId=" + BookId + ", name=" + name + ", author=" + author + ", Isissued=" + Isissued
+				+  "]";
 	}
+
 	
 	
 	

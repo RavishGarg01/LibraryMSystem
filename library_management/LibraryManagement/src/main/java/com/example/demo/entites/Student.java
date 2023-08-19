@@ -1,5 +1,6 @@
 package com.example.demo.entites;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -27,8 +28,8 @@ public class Student {
 	
 	
 	
-	@OneToMany(mappedBy="student",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-	private List<Transection> transections;
+	@OneToMany(mappedBy="student",cascade=CascadeType.ALL)
+	private List<Transection> transections=new ArrayList<>();
 	
 
 	public Student() {
@@ -36,15 +37,19 @@ public class Student {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Student(int id, String name, String branch, String course,String year,List<Transection>transections) {
+	
+
+	public Student(int id, String name, String branch, String course, String year, List<Transection> transections) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.branch = branch;
 		this.course = course;
-		this.year=year;
-		this.transections=transections;
+		this.year = year;
+		this.transections = transections;
 	}
+
+
 
 	public int getId() {
 		return id;
@@ -90,13 +95,19 @@ public class Student {
 	
 	
 
+	
+
 	public List<Transection> getTransections() {
 		return transections;
 	}
 
+
+
 	public void setTransections(List<Transection> transections) {
 		this.transections = transections;
 	}
+
+
 
 	@Override
 	public String toString() {

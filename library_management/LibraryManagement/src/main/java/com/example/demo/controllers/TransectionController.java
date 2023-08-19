@@ -30,10 +30,10 @@ public class TransectionController {
 	  return this.ts.getTransectionById(id);
   }
 	
-	
+	//Create Transection
 	@PostMapping("/transection")
-	public Transection addTransection(@RequestBody TransectionDto trans) {
-		
+	public TransectionDto addTransection(@RequestBody TransectionDto trans) {
+		System.out.println("I an currently here in controller");
 		return this.ts.CreateTransection(trans);
 		
 	}

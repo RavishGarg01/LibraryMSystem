@@ -31,7 +31,7 @@ public class StudentController {
 	}
 	
 	@GetMapping("/student/{id}")
-	public Student getById(@PathVariable("id")int id) {
+	public StudentDto getById(@PathVariable("id")int id) {
 		
 		return this.ss.getSingleStudent(id);
 		
