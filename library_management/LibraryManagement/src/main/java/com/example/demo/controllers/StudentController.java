@@ -25,7 +25,7 @@ public class StudentController {
 	
 	@PostMapping("/student")
 	public void addStudent(@RequestBody StudentDto student) {
-		
+		System.out.println("I m in StudentController");
 		this.ss.addStudent(student);
 		
 	}

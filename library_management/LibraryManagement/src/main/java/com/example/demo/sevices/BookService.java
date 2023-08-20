@@ -9,8 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dtos.BookDto;
+import com.example.demo.dtos.TransactionDto;
 import com.example.demo.entites.Book;
-import com.example.demo.entites.Transection;
+import com.example.demo.entites.Transaction;
 import com.example.demo.repositories.BookRepo;
 import com.example.demo.repositories.TransRepo;
 
@@ -30,8 +31,8 @@ public class BookService {
 	//Create Book
 	
 //	public void  createBook(int id,BookDto book) {
-//		 Optional<Transection> t=tr.findById(id);
-//		 Transection t1=t.get();
+//		 Optional<Transaction> t=tr.findById(id);
+//		 Transaction t1=t.get();
 //		Book b1=modelMapper.map(book, Book.class);
 //		b1.setTransection(t1);
 //		this.br.save(b1);
@@ -54,6 +55,16 @@ public class BookService {
 			return null;
 		}
 	}
+	public Book getByName(String name) {
+		Optional<Book> b1= this.br.findByName(name);
+		if(b1.isPresent()) {
+		Book book=b1.get();
+		return book;
+		}
+		else {
+			return null;
+		}
+	}
 
 	
 	//GetAllBooks
@@ -66,19 +77,19 @@ public class BookService {
 	
 	//GetBooksByTransection
 	
-	public List<BookDto> getBooksByTransection(int id){
-		Optional<Transection>t=tr.findById(id);
-		
-		if(t.isPresent()) {
-			Transection transection=t.get();
-			List<Book>li=this.br.getByTransection(transection);
-			List<BookDto>list=li.stream().map(i->modelMapper.map(i, BookDto.class)).collect(Collectors.toList());
-			return list;
-		}
-		else {
-			return null;
-		}
-	}
+//	public List<BookDto> getBooksByTransection(int id){
+//		Optional<Transaction>t=tr.findById(id);
+//		
+//		if(t.isPresent()) {
+//			Transaction transection=t.get();
+//			List<Book>li=this.br.getByTransection(transection);
+//			List<BookDto>list=li.stream().map(i->modelMapper.map(i, BookDto.class)).collect(Collectors.toList());
+//			return list;
+//		}
+//		else {
+//			return null;
+//		}
+//	}
 
 	public void updateBook(int id,Book book) {
 		Optional<Book> b2= this.br.findById(id);
@@ -93,6 +104,21 @@ public class BookService {
 		
 		
 		
+	}
+
+	public List<TransactionDto> IssueStatusBookId(int id) {
+		
+		Optional<Book> b1= this.br.findById(id);
+		if(b1.isPresent()) {
+		Book book=b1.get();
+//		BookDto bookDto=modelMapper.map(book,BookDto.class);
+		List<Transaction>listTransections=book.getTransactionList();
+		List<TransactionDto>listTransectionDto=listTransections.stream().map(i->modelMapper.map(i,TransactionDto.class) ).collect(Collectors.toList());
+		return listTransectionDto;
+		}
+		else {
+			return null;
+		}
 	}
 
 }

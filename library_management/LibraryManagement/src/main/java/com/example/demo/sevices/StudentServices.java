@@ -8,8 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dtos.StudentDto;
+import com.example.demo.entites.Book;
 import com.example.demo.entites.Student;
-import com.example.demo.entites.Transection;
+import com.example.demo.entites.Transaction;
 import com.example.demo.repositories.StudentRepo;
 import com.example.demo.repositories.TransRepo;
 
@@ -66,6 +67,18 @@ public class StudentServices {
 	public void deleteStudent(int id) {
 		this.sr.deleteById(id);
 		
+	}
+	
+	public Student getByName(String name) {
+		Optional<Student> s1= this.sr.findByName(name);
+		if(s1.isPresent()) {
+		Student student=s1.get();
+//		BookDto bookDto=modelMapper.map(book,BookDto.class);
+		return student;
+		}
+		else {
+			return null;
+		}
 	}
 	
 }

@@ -1,10 +1,10 @@
 package com.example.demo.entites;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,33 +17,34 @@ public class Student {
 	@GeneratedValue(strategy =GenerationType.AUTO)
 	private int id;
 	
+	private String collegeId; 
+	
 	private String name;
 	
 	private String branch;
 	
-	private String course;
-	
 	private String year;
 	
+	private int fine;
 	
+	@OneToMany(mappedBy="student", cascade=CascadeType.ALL)
+	private List<Transaction>  transactionList=new ArrayList<>();
 	
-	@OneToMany(mappedBy="student",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-	private List<Transection> transections;
-	
-
 	public Student() {
-		super();
+//		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Student(int id, String name, String branch, String course,String year,List<Transection>transections) {
+	public Student(int id, String collegeId, String name, String branch, String year, int fine,
+			List<Transaction> transactionList) {
 		super();
 		this.id = id;
+		this.collegeId = collegeId;
 		this.name = name;
 		this.branch = branch;
-		this.course = course;
-		this.year=year;
-		this.transections=transections;
+		this.year = year;
+		this.fine = fine;
+		this.transactionList = transactionList;
 	}
 
 	public int getId() {
@@ -52,6 +53,14 @@ public class Student {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getCollegeId() {
+		return collegeId;
+	}
+
+	public void setCollegeId(String collegeId) {
+		this.collegeId = collegeId;
 	}
 
 	public String getName() {
@@ -65,8 +74,10 @@ public class Student {
 	public String getBranch() {
 		return branch;
 	}
-	
-	
+
+	public void setBranch(String branch) {
+		this.branch = branch;
+	}
 
 	public String getYear() {
 		return year;
@@ -76,34 +87,28 @@ public class Student {
 		this.year = year;
 	}
 
-	public void setBranch(String branch) {
-		this.branch = branch;
+	public int getFine() {
+		return fine;
 	}
 
-	public String getCourse() {
-		return course;
+	public void setFine(int fine) {
+		this.fine = fine;
 	}
 
-	public void setCourse(String course) {
-		this.course = course;
-	}
-	
-	
-
-	public List<Transection> getTransections() {
-		return transections;
+	public List<Transaction> getTransactionList() {
+		return transactionList;
 	}
 
-	public void setTransections(List<Transection> transections) {
-		this.transections = transections;
+	public void setTransactionList(List<Transaction> transactionList) {
+		this.transactionList = transactionList;
 	}
 
 	@Override
 	public String toString() {
-		return "Student [id=" + id + ", name=" + name + ", branch=" + branch + ", course=" + course + ", year="+ year+"transection"+transections+"]";
+		return "Student [id=" + id + ", collegeId=" + collegeId + ", name=" + name + ", branch=" + branch + ", year="
+				+ year + ", fine=" + fine + ", transactionList=" + transactionList + "]";
 	}
 	
-	
-	
-
 }
+
+	

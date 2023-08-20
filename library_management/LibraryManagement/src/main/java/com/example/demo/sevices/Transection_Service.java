@@ -7,10 +7,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.dtos.TransectionDto;
+import com.example.demo.dtos.TransactionDto;
 import com.example.demo.entites.Book;
 import com.example.demo.entites.Student;
-import com.example.demo.entites.Transection;
+import com.example.demo.entites.Transaction;
 import com.example.demo.repositories.BookRepo;
 import com.example.demo.repositories.StudentRepo;
 import com.example.demo.repositories.TransRepo;
@@ -21,40 +21,49 @@ public class Transection_Service {
 	@Autowired
 	private TransRepo tr;
 	
-	private StudentRepo sr;
-	
 	@Autowired
 	ModelMapper modelMapper;
 	
+	@Autowired
+	BookService bookService;
 	
-	public List<Transection> getAllTransections(){
+	@Autowired
+	StudentServices studentService;
+	
+	public List<Transaction> getAllTransections(){
 		return this.tr.findAll();
 	}
 	
-	public TransectionDto getTransectionById(int id) {
-		Optional<Transection> op=this.tr.findById(id);
+	public TransactionDto getTransectionById(int id) {
+		Optional<Transaction> op=this.tr.findById(id);
 		
-		Transection t1=op.get();
+		Transaction t1=op.get();
 		
-		TransectionDto tdto=modelMapper.map(t1, TransectionDto.class);
+		TransactionDto tdto=modelMapper.map(t1, TransactionDto.class);
 		
 		return tdto;
 		
 	}
 	
 	
-	//Create Transection
+	//Create Transaction
 	
-	public Transection CreateTransection(TransectionDto t1) {
+	public Transaction CreateTransaction(TransactionDto t1) {
 		
+		Transaction t=modelMapper.map(t1, Transaction.class);
 		
-	    
-		Transection t=modelMapper.map(t1, Transection.class);
+		System.out.println(t1.getBookName());
+		System.out.println(t1.getStudentName());
 		
+		Book b1=bookService.getByName(t1.getBookName());
+		t.setBook(b1);
+		System.out.println(b1);
 		
-		Transection saved=this.tr.save(t);
+		Student s1=studentService.getByName(t1.getStudentName());
+		t.setStudent(s1);
+		System.out.println(s1);
 		
-		
+		Transaction saved=this.tr.save(t);
 		
 		return saved;
 	}

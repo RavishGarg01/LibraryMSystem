@@ -2,15 +2,17 @@ package com.example.demo.dtos;
 
 public class StudentDto {
 	
-
+	private int id;
+	
+	private String collegeId; 
 	
 	private String name;
 	
 	private String branch;
 	
-	private String course;
-	
 	private String year;
+	
+	private int fine;
 	
 	
 
@@ -21,15 +23,38 @@ public class StudentDto {
 
 
 
-	public StudentDto(String name, String branch, String course, String year) {
+	public StudentDto(int id, String collegeId, String name, String branch, String year, int fine) {
 		super();
+		this.id = id;
+		this.collegeId = collegeId;
 		this.name = name;
 		this.branch = branch;
-		this.course = course;
 		this.year = year;
-		
-		
-		
+		this.fine = fine;
+	}
+
+
+
+	public int getId() {
+		return id;
+	}
+
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+
+	public String getCollegeId() {
+		return collegeId;
+	}
+
+
+
+	public void setCollegeId(String collegeId) {
+		this.collegeId = collegeId;
 	}
 
 
@@ -58,18 +83,6 @@ public class StudentDto {
 
 
 
-	public String getCourse() {
-		return course;
-	}
-
-
-
-	public void setCourse(String course) {
-		this.course = course;
-	}
-
-
-
 	public String getYear() {
 		return year;
 	}
@@ -82,11 +95,23 @@ public class StudentDto {
 
 
 
+	public int getFine() {
+		return fine;
+	}
+
+
+
+	public void setFine(int fine) {
+		this.fine = fine;
+	}
+
+
+
 	@Override
 	public String toString() {
-		return "StudentDto [name=" + name + ", branch=" + branch + ", course=" + course + ", year=" + year + "]";
+		return "StudentDto [id=" + id + ", collegeId=" + collegeId + ", name=" + name + ", branch=" + branch + ", year="
+				+ year + ", fine=" + fine + "]";
 	}
 	
 	
-
 }

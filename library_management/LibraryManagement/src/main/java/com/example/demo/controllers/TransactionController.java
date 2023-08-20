@@ -9,32 +9,33 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.dtos.TransectionDto;
-import com.example.demo.entites.Transection;
+import com.example.demo.dtos.TransactionDto;
+import com.example.demo.entites.Transaction;
 import com.example.demo.sevices.Transection_Service;
 
 @RestController
-public class TransectionController {
+public class TransactionController {
 	
 	@Autowired
 	private Transection_Service ts;
 	
 	
 	@GetMapping("/transection")
-  public List<Transection> getAll(){
+  public List<Transaction> getAll(){
 	  return this.ts.getAllTransections();
   }
   
 	@GetMapping("/transection/{id}")
-  public TransectionDto getById(@PathVariable("id" ) int id) {
+  public TransactionDto getById(@PathVariable("id" ) int id) {
 	  return this.ts.getTransectionById(id);
   }
 	
 	
 	@PostMapping("/transection")
-	public Transection addTransection(@RequestBody TransectionDto trans) {
-		
-		return this.ts.CreateTransection(trans);
+	public Transaction addTransaction(@RequestBody TransactionDto trans) {
+		System.out.println("I m in TransactionController");
+		System.out.println(trans);
+		return this.ts.CreateTransaction(trans);
 		
 	}
 	

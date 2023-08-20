@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dtos.BookDto;
+import com.example.demo.dtos.TransactionDto;
 import com.example.demo.entites.Book;
+import com.example.demo.entites.Transaction;
 import com.example.demo.sevices.BookService;
 
 @CrossOrigin(origins="*",allowedHeaders="*")
@@ -41,6 +43,11 @@ public class BookController {
 		return this.bs.getById(id);
 		
 	}
+	@GetMapping("/Issue/{id}")
+	public List<TransactionDto> IssueStatusBookId(@PathVariable("id") int id) {
+		return this.bs.IssueStatusBookId(id);
+		
+	}
 	
 	@GetMapping("/book")
     public List<BookDto> getAllBooks(){
@@ -53,9 +60,9 @@ public class BookController {
 		this.bs.updateBook(id,book);
 	}
 	
-	@GetMapping("/transection/{id}/book")
-	public List<BookDto> getBooksWithTransection(@PathVariable("id")int id){
-		return this.bs.getBooksByTransection(id);
-	}
+//	@GetMapping("/transection/{id}/book")
+//	public List<BookDto> getBooksWithTransection(@PathVariable("id")int id){
+//		return this.bs.getBooksByTransection(id);
+//	}
 
 }
