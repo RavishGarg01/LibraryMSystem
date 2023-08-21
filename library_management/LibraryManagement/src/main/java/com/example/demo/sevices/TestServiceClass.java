@@ -13,7 +13,7 @@ import com.example.demo.repositories.BookRepo;
 import com.example.demo.repositories.TransRepo;
 
 @Service
-public class TestClass {
+public class TestServiceClass {
 	
 	
 	@Autowired
@@ -32,11 +32,11 @@ public class TestClass {
 		bookRepo.save(b1);
 		Transaction transaction1 =new Transaction();
 		transaction1.setBook(b1);
-		transaction1.setIssuedate("11-10-23");
+//		transaction1.setIssuedate("11-10-23");
 		transRepo.save(transaction1);
 		Transaction transaction2 =new Transaction();
 		transaction2.setBook(b1);
-		transaction2.setIssuedate("18-10-23");
+//		transaction2.setIssuedate("18-10-23");
 		transRepo.save(transaction2);
 		
 		List <Transaction>transactionList=new ArrayList<>();

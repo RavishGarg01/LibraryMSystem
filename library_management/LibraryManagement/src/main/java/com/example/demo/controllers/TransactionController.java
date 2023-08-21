@@ -11,23 +11,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dtos.TransactionDto;
 import com.example.demo.entites.Transaction;
-import com.example.demo.sevices.Transection_Service;
+import com.example.demo.sevices.TransactionService;
 
 @RestController
 public class TransactionController {
 	
 	@Autowired
-	private Transection_Service ts;
+	private TransactionService transactionService;
 	
 	
 	@GetMapping("/transection")
   public List<Transaction> getAll(){
-	  return this.ts.getAllTransections();
+	  return this.transactionService.getAllTransections();
   }
   
 	@GetMapping("/transection/{id}")
   public TransactionDto getById(@PathVariable("id" ) int id) {
-	  return this.ts.getTransectionById(id);
+	  return this.transactionService.getTransectionById(id);
   }
 	
 	
@@ -35,7 +35,7 @@ public class TransactionController {
 	public Transaction addTransaction(@RequestBody TransactionDto trans) {
 		System.out.println("I m in TransactionController");
 		System.out.println(trans);
-		return this.ts.CreateTransaction(trans);
+		return this.transactionService.CreateTransaction(trans);
 		
 	}
 	

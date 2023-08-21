@@ -13,66 +13,50 @@ import com.example.demo.dtos.TransactionDto;
 import com.example.demo.entites.Book;
 import com.example.demo.entites.Transaction;
 import com.example.demo.repositories.BookRepo;
-import com.example.demo.repositories.TransRepo;
 
 @Service
 public class BookService {
 	
 	@Autowired
-	private BookRepo br;
-	
-	@Autowired
-	private TransRepo tr;
-	
+	private BookRepo bookRepo;
 	
 	@Autowired
 	private ModelMapper modelMapper;
 	
-	//Create Book
-	
-//	public void  createBook(int id,BookDto book) {
-//		 Optional<Transaction> t=tr.findById(id);
-//		 Transaction t1=t.get();
-//		Book b1=modelMapper.map(book, Book.class);
-//		b1.setTransection(t1);
-//		this.br.save(b1);
-//		
-//	}
-	public void  createBook(BookDto book) {
-		Book b1=modelMapper.map(book, Book.class);
-		this.br.save(b1);
+
+	public void  createBook(BookDto bookDto) {
+		Book book=modelMapper.map(bookDto, Book.class);
+		this.bookRepo.save(book);
 		
 	}
 	
 	public BookDto getById(int id) {
-		Optional<Book> b1= this.br.findById(id);
-		if(b1.isPresent()) {
-		Book book=b1.get();
-		BookDto bookDto=modelMapper.map(book,BookDto.class);
-		return bookDto;
+		Optional<Book> bookList= this.bookRepo.findById(id);
+		if(bookList.isPresent()) {
+			Book book=bookList.get();
+			BookDto bookDto=modelMapper.map(book,BookDto.class);
+			return bookDto;
 		}
 		else {
 			return null;
 		}
 	}
-	public Book getByName(String name) {
-		Optional<Book> b1= this.br.findByName(name);
-		if(b1.isPresent()) {
-		Book book=b1.get();
-		return book;
-		}
-		else {
-			return null;
-		}
-	}
-
 	
-	//GetAllBooks
+	public Book getByName(String name) {
+		Optional<Book> bookList= this.bookRepo.findByName(name);
+		if(bookList.isPresent()) {
+			Book book=bookList.get();
+			return book;
+		}
+		else {
+			return null;
+		}
+	}
 	
 	public List<BookDto> getAll() {
-		List<Book>li=this.br.findAll();
-		List<BookDto>list=li.stream().map(i->modelMapper.map(i,BookDto.class)).collect(Collectors.toList());
-		return list;
+		List<Book>bookList=this.bookRepo.findAll();
+		List<BookDto>bookDtoList=bookList.stream().map(i->modelMapper.map(i,BookDto.class)).collect(Collectors.toList());
+		return bookDtoList;
 	}
 	
 	//GetBooksByTransection
@@ -82,7 +66,7 @@ public class BookService {
 //		
 //		if(t.isPresent()) {
 //			Transaction transection=t.get();
-//			List<Book>li=this.br.getByTransection(transection);
+//			List<Book>li=this.bookRepo.getByTransection(transection);
 //			List<BookDto>list=li.stream().map(i->modelMapper.map(i, BookDto.class)).collect(Collectors.toList());
 //			return list;
 //		}
@@ -91,30 +75,22 @@ public class BookService {
 //		}
 //	}
 
-	public void updateBook(int id,Book book) {
-		Optional<Book> b2= this.br.findById(id);
-		 Book b1=b2.get();
-		
-		b1.setAuthor(book.getAuthor());
-		b1.setBookId(book.getBookId());
-		b1.setIsissued(false);
-		b1.setName(book.getName());
-		
-		this.br.save(b1);
-		
-		
-		
+	public void updateBook(int id,BookDto bookDto) {
+		Optional<Book> bookList= this.bookRepo.findById(id);
+		Book book=bookList.get();
+		if(bookDto.getAuthor()!=null) {book.setAuthor(bookDto.getAuthor());}
+		if(bookDto.getName()!=null) book.setName(bookDto.getName());
+		this.bookRepo.save(book);
 	}
 
 	public List<TransactionDto> IssueStatusBookId(int id) {
 		
-		Optional<Book> b1= this.br.findById(id);
-		if(b1.isPresent()) {
-		Book book=b1.get();
-//		BookDto bookDto=modelMapper.map(book,BookDto.class);
-		List<Transaction>listTransections=book.getTransactionList();
-		List<TransactionDto>listTransectionDto=listTransections.stream().map(i->modelMapper.map(i,TransactionDto.class) ).collect(Collectors.toList());
-		return listTransectionDto;
+		Optional<Book> bookList= this.bookRepo.findById(id);
+		if(bookList.isPresent()) {
+			Book book=bookList.get();
+			List<Transaction>listTransections=book.getTransactionList();
+			List<TransactionDto>listTransectionDto=listTransections.stream().map(i->modelMapper.map(i,TransactionDto.class) ).collect(Collectors.toList());
+			return listTransectionDto;
 		}
 		else {
 			return null;

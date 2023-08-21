@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.ApplicationContext; 
 
-import com.example.demo.sevices.TestClass;
+import com.example.demo.sevices.TestServiceClass;
 
 @SpringBootApplication
 public class LibraryManagementApplication {
@@ -16,10 +16,10 @@ public class LibraryManagementApplication {
 	public static void main(String[] args) {
 		ApplicationContext context = SpringApplication.run(LibraryManagementApplication.class, args);
 		
-//		 // Instantiate TestClass using context.getBean()
-//        TestClass testClass = context.getBean(TestClass.class);
+//		 // Instantiate TestServiceClass using context.getBean()
+//        TestServiceClass testClass = context.getBean(TestServiceClass.class);
 //        
-//        // Call the ServiceMethod on the instantiated TestClass
+//        // Call the ServiceMethod on the instantiated TestServiceClass
 //        testClass.ServiceMethod();
 //        
 //        // Close the application context

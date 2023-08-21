@@ -14,43 +14,40 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dtos.StudentDto;
 import com.example.demo.entites.Student;
-import com.example.demo.sevices.StudentServices;
+import com.example.demo.sevices.StudentService;
 
 @CrossOrigin(origins="*",allowedHeaders="*")
 @RestController
 public class StudentController {
 	
 	@Autowired
-	private StudentServices ss;
+	private StudentService studentService;
 	
 	@PostMapping("/student")
 	public void addStudent(@RequestBody StudentDto student) {
 		System.out.println("I m in StudentController");
-		this.ss.addStudent(student);
-		
+		this.studentService.addStudent(student);
 	}
 	
 	@GetMapping("/student/{id}")
 	public Student getById(@PathVariable("id")int id) {
-		
-		return this.ss.getSingleStudent(id);
-		
+		return this.studentService.getSingleStudent(id);
 	}
 	
 	
 	@GetMapping("/student")
 	public List<Student> getAll(){
-		return this.ss.getAllStudents();
+		return this.studentService.getAllStudents();
 	}
 	
 	@PutMapping("student/{id}")
-	public void updateStudentInfo(@PathVariable("id")int id,@RequestBody Student student) {
-		this.ss.UpdateStudent(id, student);
+	public void updateStudentInfo(@PathVariable("id")int id,@RequestBody StudentDto studentDto) {
+		this.studentService.UpdateStudent(id, studentDto);
 	}
 	
 	@DeleteMapping("/student")
 	public void deleteStudent(@PathVariable("id")int id) {
-		this.ss.deleteStudent(id);
+		this.studentService.deleteStudent(id);
 	}
 	
 	
