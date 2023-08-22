@@ -1,6 +1,8 @@
 package com.example.demo.entites;
 
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -17,9 +19,10 @@ public class Transaction {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int referenceId;
 	
-	private String transactionType;
+	private String issueDate;
 	
-	private String transactionDate;
+	private String returnDate;
+
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonIgnore
@@ -34,11 +37,11 @@ public class Transaction {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Transaction(int referenceId, String transactionType, String transactionDate, Book book, Student student) {
+	public Transaction(int referenceId, String issueDate, String returnDate, Book book, Student student) {
 		super();
 		this.referenceId = referenceId;
-		this.transactionType = transactionType;
-		this.transactionDate = transactionDate;
+		this.issueDate = issueDate;
+		this.returnDate = returnDate;
 		this.book = book;
 		this.student = student;
 	}
@@ -51,20 +54,20 @@ public class Transaction {
 		this.referenceId = referenceId;
 	}
 
-	public String getTransactionType() {
-		return transactionType;
+	public String getReturnDate() {
+		return returnDate;
 	}
 
-	public void setTransactionType(String transactionType) {
-		this.transactionType = transactionType;
+	public void setReturnDate(String returnDate) {
+		this.returnDate = returnDate;
 	}
 
-	public String getTransactionDate() {
-		return transactionDate;
+	public String getIssueDate() {
+		return issueDate;
 	}
 
-	public void setTransactionDate(String transactionDate) {
-		this.transactionDate = transactionDate;
+	public void setIssueDate(String issueDate) {
+		this.issueDate = issueDate;
 	}
 
 	public Book getBook() {

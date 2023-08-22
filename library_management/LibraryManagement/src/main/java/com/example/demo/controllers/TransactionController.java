@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +32,18 @@ public class TransactionController {
   }
 	
 	
-	@PostMapping("/transection")
-	public Transaction addTransaction(@RequestBody TransactionDto trans) {
+	@PostMapping("/transection/issue")
+	public Transaction issueBook(@RequestBody TransactionDto transactionDto) {
 		System.out.println("I m in TransactionController");
-		System.out.println(trans);
-		return this.transactionService.CreateTransaction(trans);
+		System.out.println(transactionDto);
+		return this.transactionService.issueBook(transactionDto);
+		
+	}
+	@PostMapping("/transection/return")
+	public Transaction returnBook(@RequestBody TransactionDto transactionDto) throws ParseException {
+		System.out.println("I m in TransactionController");
+		System.out.println(transactionDto);
+		return this.transactionService.returnBook(transactionDto);
 		
 	}
 	
