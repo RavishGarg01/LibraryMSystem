@@ -57,11 +57,12 @@ public class StudentController {
 		this.studentService.deleteStudent(id);
 	}
 	
-//	@GetMapping("/student/books")
-//	public Optional<Transaction> issuedBooks(@RequestBody Student studentDto){
-//		return this.transactionService.getAllTransactionByStudentAndReturnDate(studentDto);
-//	}
-//	
+	@GetMapping("/student/books")
+	public Optional<Transaction> issuedBooks(@RequestBody Student studentDto){
+		System.out.println("I m in student controller");
+		return this.transactionService.getAllTransactionByStudentAndReturnDate(studentDto);
+	}
+	
 	
 
 }
