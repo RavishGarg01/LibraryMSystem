@@ -47,6 +47,8 @@ public class Student {
 		this.transactionList = transactionList;
 	}
 
+
+
 	public int getId() {
 		return id;
 	}
@@ -102,6 +104,8 @@ public class Student {
 	public void setTransactionList(List<Transaction> transactionList) {
 		this.transactionList = transactionList;
 	}
+
+
 
 	@Override
 	public String toString() {
