@@ -1,13 +1,12 @@
-//package com.example.demo.repositories;
-//
-//import java.util.List;
-//
-//import org.springframework.data.jpa.repository.JpaRepository;
-//
-//import com.example.demo.entites.Book;
-//import com.example.demo.entites.Transection;
-//
-//public interface BookRepo extends  JpaRepository<Book,Integer> {
-// 
-//	List<Book> getByTransection(Transection transection);
-//}
+package com.example.demo.repositories;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.example.demo.entites.Book;
+
+public interface BookRepo extends  JpaRepository<Book,Integer> {
+
+	Optional<Book> findByName(String name);
+}

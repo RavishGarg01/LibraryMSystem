@@ -2,14 +2,14 @@ package com.example.demo.dtos;
 
 public class BookDto {
 	
+	private int bookId;
+	
 	private String name;
 	
 	private String author;
 	
-	private boolean Isissued;
+	private boolean isissued;
 	
-	private TransectionDto transection;
-
 	
 	
 	public BookDto() {
@@ -17,52 +17,68 @@ public class BookDto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BookDto(String name, String author, boolean isissued,TransectionDto transection) {
+	public BookDto(int bookId, String name, String author, boolean isissued) {
 		super();
+		this.bookId = bookId;
 		this.name = name;
 		this.author = author;
-		Isissued = isissued;
-		this.transection=transection;
+		this.isissued = isissued;
 	}
+
+
+
+	public int getBookId() {
+		return bookId;
+	}
+
+
+
+	public void setBookId(int bookId) {
+		this.bookId = bookId;
+	}
+
+
 
 	public String getName() {
 		return name;
 	}
 
+
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
+
 
 	public String getAuthor() {
 		return author;
 	}
 
+
+
 	public void setAuthor(String author) {
 		this.author = author;
 	}
 
+
+
 	public boolean isIsissued() {
-		return Isissued;
+		return isissued;
 	}
+
+
 
 	public void setIsissued(boolean isissued) {
-		Isissued = isissued;
-	}
-	
-
-	public TransectionDto getTransection() {
-		return transection;
+		this.isissued = isissued;
 	}
 
-	public void setTransection(TransectionDto transection) {
-		this.transection = transection;
-	}
+
 
 	@Override
 	public String toString() {
-		return "BookDto [name=" + name + ", author=" + author + ", Isissued=" + Isissued + "transection"+transection+"]";
+		return "BookDto [bookId=" + bookId + ", name=" + name + ", author=" + author + ", isissued=" + isissued + "]";
 	}
-	
 	
 
 }
