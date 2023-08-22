@@ -2,13 +2,16 @@ package com.example.demo.sevices;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dtos.BookDto;
 import com.example.demo.dtos.StudentDto;
 import com.example.demo.entites.Student;
+import com.example.demo.entites.Transaction;
 import com.example.demo.repositories.StudentRepo;
 
 @Service
@@ -20,6 +23,8 @@ public class StudentService {
 	@Autowired
 	private ModelMapper modelMapper;
 	
+	@Autowired
+	private TransactionService transactionService;
 	
 	public void addStudent(StudentDto studentDto) {
 		Student student =modelMapper.map(studentDto, Student.class);
@@ -60,5 +65,14 @@ public class StudentService {
 			return null;
 		}
 	}
-	
+//	public List<BookDto> issuedBooks(StudentDto studentDto){
+//		Optional<Transaction>transactionList=transactionService.getAllTransactionByStudentAndReturnDate(modelMapper.map(studentDto, Student.class));
+//		List <BookDto> bookList=transactionList.stream().map(transaction->modelMapper.map(transaction.getBook(),BookDto.class) ).collect(Collectors.toList());
+//		return bookList;
+//	}
+//	public Optional<Transaction> issuedBooks(Student student){
+//		return transactionService.getAllTransactionByStudentAndReturnDate(student);
+//		
+//	}
+//	
 }

@@ -1,14 +1,15 @@
 package com.example.demo.dtos;
 
+import java.util.Date;
 
 public class TransactionDto {
 	
 	
 	private int referenceId;
 	
-	private String transactionType;
+	private String returnDate;;
 	
-	private String transactionDate;
+	private String issueDate;
 	
 	private String BookName;
 	
@@ -22,12 +23,12 @@ public class TransactionDto {
 		super();
 	}
 
-	public TransactionDto(int referenceId, String transactionType, String transactionDate, String bookName,
+	public TransactionDto(int referenceId, String returnDate, String issueDate, String bookName,
 			String studentName, StudentDto studentDto, BookDto bookDto) {
 		super();
 		this.referenceId = referenceId;
-		this.transactionType = transactionType;
-		this.transactionDate = transactionDate;
+		this.returnDate = returnDate;
+		this.issueDate = issueDate;
 		BookName = bookName;
 		StudentName = studentName;
 		this.studentDto = studentDto;
@@ -42,20 +43,20 @@ public class TransactionDto {
 		this.referenceId = referenceId;
 	}
 
-	public String getTransactionType() {
-		return transactionType;
+	public String getReturnDate() {
+		return returnDate;
 	}
 
-	public void setTransactionType(String transactionType) {
-		this.transactionType = transactionType;
+	public void setReturnDate(String returnDate) {
+		this.returnDate = returnDate;
 	}
 
-	public String getTransactionDate() {
-		return transactionDate;
+	public String getIssueDate() {
+		return issueDate;
 	}
 
-	public void setTransactionDate(String transactionDate) {
-		this.transactionDate = transactionDate;
+	public void setIssueDate(String issueDate) {
+		this.issueDate = issueDate;
 	}
 
 	public String getBookName() {
