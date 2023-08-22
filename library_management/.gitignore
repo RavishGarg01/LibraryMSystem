@@ -1,1 +1,4 @@
 /.metadata/
+library_management/LibraryManagement/target/classes/application.properties
+*.class
+library_management/LibraryManagement/target/classes/META-INF/maven/com.lib_mgm/LibraryManagement/pom.properties

@@ -31,7 +31,8 @@ public class TransactionService {
 	BookService bookService;
 	
 	@Autowired
-//	StudentService studentService;
+	StudentService studentService;
+	
 	
 	public List<Transaction> getAllTransections(){
 		return this.transRepo.findAll();
@@ -109,9 +110,13 @@ public class TransactionService {
 		return fine;
 	}
 	
-//	public Optional<Transaction> getAllTransactionByStudentAndReturnDate(Student student){
-//		Optional<Transaction> transactionList= transRepo.findByStudentAndReturnDate(student, "");
-//		return transactionList;
-//	}
-//	
+	public Optional<Transaction> getAllTransactionByStudentAndReturnDate(Student student){
+		System.out.println("I am in transection service");
+		Student studentInstance = studentService.getByName(student.getName());
+		Optional<Transaction> transactionList= transRepo.findByStudentAndReturnDate(studentInstance, "");
+		
+		System.out.println("After declaration of optional");
+		return transactionList;
+	}
+	
 }

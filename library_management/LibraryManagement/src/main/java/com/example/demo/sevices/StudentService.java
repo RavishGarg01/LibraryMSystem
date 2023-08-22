@@ -23,8 +23,8 @@ public class StudentService {
 	@Autowired
 	private ModelMapper modelMapper;
 	
-	@Autowired
-	private TransactionService transactionService;
+//	@Autowired
+//	private TransactionService transactionService;
 	
 	public void addStudent(StudentDto studentDto) {
 		Student student =modelMapper.map(studentDto, Student.class);
