@@ -35,10 +35,17 @@ public class TransactionController {
 	
 	
 	@PostMapping("/transection/issue")
-	public ResponseEntity<Transaction> issueBook(@RequestBody TransactionDto transactionDto) {
+	public ResponseEntity<Transaction> issueBook(@RequestBody TransactionDto transactionDto) throws Exception {
 		System.out.println("I m in TransactionController");
 		System.out.println(transactionDto);
-		return new ResponseEntity(this.transactionService.issueBook(transactionDto),HttpStatus.OK);
+		try {
+			this.transactionService.issueBook(transactionDto);
+			return new ResponseEntity(this.transactionService.issueBook(transactionDto),HttpStatus.OK);
+		}catch(Exception e) {
+			return new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+		
+		
 	
 	}
 	@PostMapping("/transection/return")

@@ -48,11 +48,19 @@ public class TransactionService {
 	
 	//Create Transaction
 	
-	public Transaction issueBook(TransactionDto transactionDto) {
+	public Transaction issueBook(TransactionDto transactionDto) throws Exception {
 		
 		Transaction transaction=modelMapper.map(transactionDto, Transaction.class);
+		Book book;
+		try {
+		 book=bookService.getByName(transactionDto.getBookName());
+		 System.out.println(book);
+		}catch(NullPointerException e) {
+			e.printStackTrace();
+			
+		     throw e;
+		}
 		
-		Book book=bookService.getByName(transactionDto.getBookName());
 		if(!book.isIsissued()) {
 			book.setIsissued(true);
 			transaction.setBook(book);
@@ -70,7 +78,7 @@ public class TransactionService {
 			
 			return saved;
 		}else {
-			return null;
+			throw new Exception("Book is already issued");
 		}
 		
 	}
