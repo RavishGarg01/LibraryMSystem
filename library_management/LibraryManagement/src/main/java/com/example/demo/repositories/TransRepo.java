@@ -1,5 +1,6 @@
 package com.example.demo.repositories;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,5 +15,5 @@ public interface  TransRepo extends JpaRepository<Transaction,Integer> {
 
 	Optional<Transaction> findByStudentAndReturnDate(Student student, String returnDate);
 
-	Optional<Transaction> findByBookAndStudentAndReturnDate(Book book, Student student, String returnDate);
+	Optional<Transaction> findByBookAndStudentAndReturnDate(Book book, Student student, Date returnDate);
 }
