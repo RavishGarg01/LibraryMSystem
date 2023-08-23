@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,11 +35,11 @@ public class TransactionController {
 	
 	
 	@PostMapping("/transection/issue")
-	public Transaction issueBook(@RequestBody TransactionDto transactionDto) {
+	public ResponseEntity<Transaction> issueBook(@RequestBody TransactionDto transactionDto) {
 		System.out.println("I m in TransactionController");
 		System.out.println(transactionDto);
-		return this.transactionService.issueBook(transactionDto);
-		
+		return new ResponseEntity(this.transactionService.issueBook(transactionDto),HttpStatus.OK);
+	
 	}
 	@PostMapping("/transection/return")
 	public Transaction returnBook(@RequestBody TransactionDto transactionDto) throws ParseException {
