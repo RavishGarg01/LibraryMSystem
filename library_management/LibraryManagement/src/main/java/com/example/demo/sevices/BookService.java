@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dtos.BookDto;
@@ -25,7 +26,9 @@ public class BookService {
 	
 
 	public void  createBook(BookDto bookDto) {
+		
 		Book book=modelMapper.map(bookDto, Book.class);
+		book.setIsissued(false);
 		this.bookRepo.save(book);
 		
 	}
@@ -36,20 +39,23 @@ public class BookService {
 			Book book=bookList.get();
 			BookDto bookDto=modelMapper.map(book,BookDto.class);
 			return bookDto;
+			
 		}
 		else {
 			return null;
 		}
 	}
 	
-	public Book getByName(String name) {
-		Optional<Book> bookList= this.bookRepo.findByName(name);
-		if(bookList.isPresent()) {
-			Book book=bookList.get();
+	public Book getByName(String name) throws NullPointerException {
+		Optional<Book> optionalbook= this.bookRepo.findByName(name);
+		if(optionalbook.isPresent()) {
+			Book book=optionalbook.get();
+			System.out.println("get name Method"+book);
+			
 			return book;
 		}
 		else {
-			return null;
+			throw new NullPointerException("Book with given name is not found");
 		}
 	}
 	

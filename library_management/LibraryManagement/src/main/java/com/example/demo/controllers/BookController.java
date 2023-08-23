@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.dtos.BookDto;
 import com.example.demo.sevices.BookService;
 import com.example.demo.dtos.TransactionDto;
+import com.example.demo.entites.Book;
 
 
 @CrossOrigin(origins="*",allowedHeaders="*")
@@ -54,5 +55,10 @@ public class BookController {
 //	public List<BookDto> getBooksWithTransection(@PathVariable("id")int id){
 //		return this.bookService.getBooksByTransection(id);
 //	}
+	
+	@GetMapping("/bookbyname")
+	public Book getByName(@RequestBody String bookname) {
+		return bookService.getByName(bookname);
+	}
 
 }
