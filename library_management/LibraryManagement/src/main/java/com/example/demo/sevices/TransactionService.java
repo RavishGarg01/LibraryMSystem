@@ -53,50 +53,51 @@ public class TransactionService {
 		Transaction transaction=modelMapper.map(transactionDto, Transaction.class);
 		
 		Book book=bookService.getByName(transactionDto.getBookName());
-		book.setIsissued(true);
-		transaction.setBook(book);
+		if(!book.isIsissued()) {
+			book.setIsissued(true);
+			transaction.setBook(book);
+			
+			System.out.println(book);
+			
+			Student student=studentService.getByName(transactionDto.getStudentName());
+			transaction.setStudent(student);
+			System.out.println(student);
+			
+			Date currentDate= new Date();
+			transaction.setIssueDate(currentDate);
+			transaction.setReturnDate(null);
+			Transaction saved= this.transRepo.save(transaction);
+			
+			return saved;
+		}else {
+			return null;
+		}
 		
-		System.out.println(book);
-		
-		Student student=studentService.getByName(transactionDto.getStudentName());
-		transaction.setStudent(student);
-		System.out.println(student);
-		
-		Transaction saved=this.transRepo.save(transaction);
-		
-		return saved;
 	}
 
-	public Transaction returnBook(TransactionDto transactionDto) throws ParseException {
-		Transaction transaction=modelMapper.map(transactionDto, Transaction.class);
+	public Transaction returnBook(TransactionDto transactionDtofromUser) throws ParseException {
+		Date currentDate=new Date();
 		
-		Book book=bookService.getByName(transactionDto.getBookName());
+		Student student=studentService.getByName(transactionDtofromUser.getStudentName());
+		Book book=bookService.getByName(transactionDtofromUser.getBookName());
 		book.setIsissued(false);
-		transaction.setBook(book);
 		
-		System.out.println(book);
-		
-		Student student=studentService.getByName(transactionDto.getStudentName());
-		transaction.setStudent(student);
-		System.out.println(student);
-		
-//		Optional<Transaction>transactionList=transRepo.findByBookAndStudentAndReturnDate(book, student,"");
-		//need to get latest transaction
-//		Transaction prevTransaction =transactionList.get();
-		int fine = fineCalculator(transaction.getIssueDate(),transaction.getReturnDate());
-		
-		student.setFine(student.getFine()+fine);
+		Optional<Transaction>transactionList=transRepo.findByBookAndStudentAndReturnDate(book, student,null);
+		Transaction transaction =transactionList.get();
+		transaction.setReturnDate(currentDate);
 		Transaction saved=this.transRepo.save(transaction);
 		
+		int fine = fineCalculator(transaction.getIssueDate(),currentDate);
+		student.setFine(student.getFine()+fine);
 		return saved;	
 		}
 	
-	private int fineCalculator(String issueDateS,String returnDateS) throws ParseException {
+	private int fineCalculator(Date issueDate,Date returnDate) throws ParseException {
 		int fine=0;
 		int daysLimit=15;
 		int finePerDay=1;
-		Date issueDate = new SimpleDateFormat("dd-MM-yyyy").parse(issueDateS);
-		Date returnDate = new SimpleDateFormat("dd-MM-yyyy").parse(returnDateS);
+//		Date issueDate = new SimpleDateFormat("dd-MM-yyyy").parse(issueDateS);
+//		Date returnDate = new SimpleDateFormat("dd-MM-yyyy").parse(returnDateS);
 		long time_difference = returnDate.getTime() - issueDate.getTime();  
         
         // Calucalte time difference in days using TimeUnit class  

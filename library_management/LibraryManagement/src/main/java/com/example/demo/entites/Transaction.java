@@ -19,9 +19,9 @@ public class Transaction {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int referenceId;
 	
-	private String issueDate;
+	private Date issueDate;
 	
-	private String returnDate;
+	private Date returnDate;
 
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -37,7 +37,7 @@ public class Transaction {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Transaction(int referenceId, String issueDate, String returnDate, Book book, Student student) {
+	public Transaction(int referenceId, Date issueDate, Date returnDate, Book book, Student student) {
 		super();
 		this.referenceId = referenceId;
 		this.issueDate = issueDate;
@@ -54,19 +54,19 @@ public class Transaction {
 		this.referenceId = referenceId;
 	}
 
-	public String getReturnDate() {
+	public Date getReturnDate() {
 		return returnDate;
 	}
 
-	public void setReturnDate(String returnDate) {
+	public void setReturnDate(Date returnDate) {
 		this.returnDate = returnDate;
 	}
 
-	public String getIssueDate() {
+	public Date getIssueDate() {
 		return issueDate;
 	}
 
-	public void setIssueDate(String issueDate) {
+	public void setIssueDate(Date issueDate) {
 		this.issueDate = issueDate;
 	}
 
