@@ -2,7 +2,7 @@ package com.example.demo.dtos;
 
 public class BookDto {
 	
-	private int bookId;
+	private String bookId;
 	
 	private String name;
 	
@@ -17,7 +17,7 @@ public class BookDto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BookDto(int bookId, String name, String author, boolean isissued) {
+	public BookDto(String bookId, String name, String author, boolean isissued) {
 		super();
 		this.bookId = bookId;
 		this.name = name;
@@ -27,13 +27,13 @@ public class BookDto {
 
 
 
-	public int getBookId() {
+	public String getBookId() {
 		return bookId;
 	}
 
 
 
-	public void setBookId(int bookId) {
+	public void setBookId(String bookId) {
 		this.bookId = bookId;
 	}
 

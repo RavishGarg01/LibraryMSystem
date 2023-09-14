@@ -18,43 +18,50 @@ import com.example.demo.sevices.TransactionService;
 
 @RestController
 public class TransactionController {
-	
+
 	@Autowired
 	private TransactionService transactionService;
-	
-	
+
 	@GetMapping("/transection")
-  public List<Transaction> getAll(){
-	  return this.transactionService.getAllTransections();
-  }
-  
+	public ResponseEntity<List<Transaction>> getAll() {
+		try {
+			List<Transaction> transactionList = this.transactionService.getAllTransections();
+			return new ResponseEntity(transactionList, HttpStatus.OK);
+		} catch (Exception exception) {
+			return new ResponseEntity(exception.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+
 	@GetMapping("/transection/{id}")
-  public TransactionDto getById(@PathVariable("id" ) int id) {
-	  return this.transactionService.getTransectionById(id);
-  }
-	
-	
+	public ResponseEntity<TransactionDto> getById(@PathVariable("id") int id) {
+		try {
+			TransactionDto transactionDto = this.transactionService.getTransectionById(id);
+			return new ResponseEntity(transactionDto, HttpStatus.OK);
+		} catch (Exception exception) {
+			return new ResponseEntity(exception.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+
 	@PostMapping("/transection/issue")
 	public ResponseEntity<Transaction> issueBook(@RequestBody TransactionDto transactionDto) throws Exception {
-		System.out.println("I m in TransactionController");
-		System.out.println(transactionDto);
 		try {
-			this.transactionService.issueBook(transactionDto);
-			return new ResponseEntity(this.transactionService.issueBook(transactionDto),HttpStatus.OK);
-		}catch(Exception e) {
-			return new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
+			Transaction transaction = this.transactionService.issueBook(transactionDto);
+			return new ResponseEntity(transaction, HttpStatus.OK);
+		} catch (Exception exception) {
+			return new ResponseEntity(exception.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-		
-		
-	
+
 	}
+
 	@PostMapping("/transection/return")
-	public Transaction returnBook(@RequestBody TransactionDto transactionDto) throws ParseException {
-		System.out.println("I m in TransactionController");
-		System.out.println(transactionDto);
-		return this.transactionService.returnBook(transactionDto);
-		
+	public ResponseEntity<Transaction> returnBook(@RequestBody TransactionDto transactionDto) throws ParseException {
+		try {
+			Transaction transaction = this.transactionService.returnBook(transactionDto);
+			return new ResponseEntity(transaction, HttpStatus.OK);
+		} catch (Exception exception) {
+			return new ResponseEntity(exception.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
 	}
-	
 
 }

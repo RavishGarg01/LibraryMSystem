@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,54 +17,87 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dtos.BookDto;
 import com.example.demo.dtos.StudentDto;
+import com.example.demo.entites.Book;
 import com.example.demo.entites.Student;
 import com.example.demo.entites.Transaction;
 import com.example.demo.sevices.StudentService;
 import com.example.demo.sevices.TransactionService;
 
-@CrossOrigin(origins="*",allowedHeaders="*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class StudentController {
-	
+
 	@Autowired
 	private StudentService studentService;
-	
+
 	@Autowired
 	private TransactionService transactionService;
-	
+
 	@PostMapping("/student")
-	public void addStudent(@RequestBody StudentDto student) {
-		System.out.println("I m in StudentController");
-		this.studentService.addStudent(student);
+	public ResponseEntity<String> addStudent(@RequestBody StudentDto student) {
+		try {
+			String status = this.studentService.addStudent(student);
+			return new ResponseEntity(status, HttpStatus.OK);
+		} catch (Exception exception) {
+			return new ResponseEntity(exception.getMessage(), HttpStatus.BAD_REQUEST);
+		}
 	}
-	
+
 	@GetMapping("/student/{id}")
-	public Student getById(@PathVariable("id")int id) {
-		return this.studentService.getSingleStudent(id);
+	public ResponseEntity<Student> getById(@PathVariable("id") int id) {
+		try {
+			Student student = this.studentService.getSingleStudent(id);
+			return new ResponseEntity(student, HttpStatus.OK);
+		} catch (Exception exception) {
+			return new ResponseEntity(exception.getMessage(), HttpStatus.BAD_REQUEST);
+		}
 	}
-	
-	
+
 	@GetMapping("/student")
-	public List<Student> getAll(){
-		return this.studentService.getAllStudents();
+	public ResponseEntity<List<Student>> getAll() {
+		try {
+			List<Student> studentList = this.studentService.getAllStudents();
+			return new ResponseEntity(studentList, HttpStatus.OK);
+		} catch (Exception exception) {
+			return new ResponseEntity(exception.getMessage(), HttpStatus.BAD_REQUEST);
+		}
 	}
-	
+
 	@PutMapping("student/{id}")
-	public void updateStudentInfo(@PathVariable("id")int id,@RequestBody StudentDto studentDto) {
-		this.studentService.UpdateStudent(id, studentDto);
+	public ResponseEntity<String> updateStudentInfo(@PathVariable("id") int id, @RequestBody StudentDto studentDto) {
+		try {
+			String status = this.studentService.UpdateStudent(id, studentDto);
+			return new ResponseEntity(status, HttpStatus.OK);
+		} catch (Exception exception) {
+			return new ResponseEntity(exception.getMessage(), HttpStatus.BAD_REQUEST);
+		}
 	}
-	
+
 	@DeleteMapping("/student")
-	public void deleteStudent(@PathVariable("id")int id) {
+	public ResponseEntity<String> deleteStudent(@PathVariable("id") int id) {
 		this.studentService.deleteStudent(id);
+		try {
+			String status = this.studentService.deleteStudent(id);
+			return new ResponseEntity(status, HttpStatus.OK);
+		} catch (Exception exception) {
+			return new ResponseEntity(exception.getMessage(), HttpStatus.BAD_REQUEST);
+		}
 	}
-	
-	@GetMapping("/student/books")
-	public Optional<Transaction> issuedBooks(@RequestBody Student studentDto){
-		System.out.println("I m in student controller");
-		return this.transactionService.getAllTransactionByStudentAndReturnDate(studentDto);
+
+	@PostMapping("/student/books")
+	public ResponseEntity<Optional<List<BookDto>>> issuedBooks(@RequestBody Student studentDto) {
+		try {
+			System.out.println("I m here in contoller");
+			Optional<List<BookDto>> status = this.transactionService.getAllTransactionByStudentAndReturnDate(studentDto);
+			return new ResponseEntity(status, HttpStatus.OK);
+		} catch (Exception exception) {
+			return new ResponseEntity(exception.getMessage(), HttpStatus.BAD_REQUEST);
+		}
 	}
-	
-	
+
+	@PostMapping("/student-by-approxname")
+	public List<Student> searchBooks(@RequestBody StudentDto studentDto) {
+		return studentService.searchByApproxName(studentDto.getName());
+	}
 
 }
