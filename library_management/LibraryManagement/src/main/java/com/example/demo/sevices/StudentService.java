@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.dtos.BookDto;
 import com.example.demo.dtos.StudentDto;
+import com.example.demo.entites.Book;
 import com.example.demo.entites.Student;
 import com.example.demo.entites.Transaction;
 import com.example.demo.repositories.StudentRepo;
@@ -26,9 +27,10 @@ public class StudentService {
 //	@Autowired
 //	private TransactionService transactionService;
 	
-	public void addStudent(StudentDto studentDto) {
+	public String addStudent(StudentDto studentDto) {
 		Student student =modelMapper.map(studentDto, Student.class);
 		this.studentRepo.save(student);
+		return String.valueOf(student.getId());
 	}
 	
 	public Student getSingleStudent(int id) {
@@ -41,17 +43,19 @@ public class StudentService {
 		return this.studentRepo.findAll();
 	}
 	
-	public void UpdateStudent(int id,StudentDto studentDto) {
+	public String UpdateStudent(int id,StudentDto studentDto) {
 		Optional<Student> studentList=this.studentRepo.findById(id);
 		Student student=studentList.get();
 		student.setName(studentDto.getName());
 		student.setBranch(studentDto.getBranch());
 		student.setYear(studentDto.getYear());
 		this.studentRepo.save(student);
+		return String.valueOf(student.getId());
 	}
 	
-	public void deleteStudent(int id) {
+	public String deleteStudent(int id) {
 		this.studentRepo.deleteById(id);
+		return "Done";
 	}
 	
 	public Student getByName(String name) {
@@ -75,4 +79,9 @@ public class StudentService {
 //		
 //	}
 //	
+
+	public List<Student> searchByApproxName(String name) {
+		
+		return studentRepo.findByNameContaining(name);
+	}
 }

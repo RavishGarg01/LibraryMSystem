@@ -11,9 +11,9 @@ public class TransactionDto {
 	
 	private String issueDate;
 	
-	private String BookName;
+	private String bookName;
 	
-	private String StudentName;
+	private String studentName;
 	
 	private StudentDto studentDto;
 	
@@ -29,8 +29,8 @@ public class TransactionDto {
 		this.referenceId = referenceId;
 		this.returnDate = returnDate;
 		this.issueDate = issueDate;
-		BookName = bookName;
-		StudentName = studentName;
+		this.bookName = bookName;
+		this.studentName = studentName;
 		this.studentDto = studentDto;
 		this.bookDto = bookDto;
 	}
@@ -59,20 +59,20 @@ public class TransactionDto {
 		this.issueDate = issueDate;
 	}
 
-	public String getBookName() {
-		return BookName;
+	public String getbookName() {
+		return bookName;
 	}
 
-	public void setBookName(String bookName) {
-		BookName = bookName;
+	public void setbookName(String bookName) {
+		this.bookName = bookName;
 	}
 
-	public String getStudentName() {
-		return StudentName;
+	public String getstudentName() {
+		return studentName;
 	}
 
-	public void setStudentName(String studentName) {
-		StudentName = studentName;
+	public void setstudentName(String studentName) {
+		this.studentName = studentName;
 	}
 
 	public StudentDto getStudentDto() {
