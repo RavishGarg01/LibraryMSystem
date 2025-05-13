@@ -1,19 +1,17 @@
-package com.example.demo.sevices;
+package com.example.demo.services;
 
-import java.util.Collections;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dtos.BookDto;
-import com.example.demo.dtos.TransactionDto;
 import com.example.demo.entites.Book;
-import com.example.demo.entites.Transaction;
 import com.example.demo.repositories.BookRepo;
 
 @Service

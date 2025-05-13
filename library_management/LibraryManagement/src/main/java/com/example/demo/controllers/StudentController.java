@@ -20,8 +20,8 @@ import com.example.demo.dtos.StudentDto;
 import com.example.demo.entites.Book;
 import com.example.demo.entites.Student;
 import com.example.demo.entites.Transaction;
-import com.example.demo.sevices.StudentService;
-import com.example.demo.sevices.TransactionService;
+import com.example.demo.services.StudentService;
+import com.example.demo.services.TransactionService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -63,7 +63,7 @@ public class StudentController {
 		}
 	}
 
-	@PutMapping("student/{id}")
+	@PutMapping("/student/{id}")
 	public ResponseEntity<String> updateStudentInfo(@PathVariable("id") int id, @RequestBody StudentDto studentDto) {
 		try {
 			String status = this.studentService.UpdateStudent(id, studentDto);
@@ -84,7 +84,7 @@ public class StudentController {
 		}
 	}
 
-	@PostMapping("/student/books")
+	@GetMapping("/student/books")
 	public ResponseEntity<Optional<List<BookDto>>> issuedBooks(@RequestBody Student studentDto) {
 		try {
 			System.out.println("I m here in contoller");
@@ -99,5 +99,5 @@ public class StudentController {
 	public List<Student> searchBooks(@RequestBody StudentDto studentDto) {
 		return studentService.searchByApproxName(studentDto.getName());
 	}
-
+	
 }

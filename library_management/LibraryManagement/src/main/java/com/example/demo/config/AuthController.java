@@ -1,0 +1,92 @@
+package com.example.demo.config;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/auth")
+public class AuthController {
+
+	@Autowired
+	private UserDetailsService userDetailsService;
+
+	@Autowired
+	private AuthenticationManager manager;
+
+	@Autowired
+	private JwtHelper helper;
+	
+    @Autowired
+    private RegistrationService registrationService;
+
+	private Logger logger = LoggerFactory.getLogger(AuthController.class);
+
+	@PostMapping("/login")
+	public ResponseEntity<String> login(@RequestBody JwtRequestDTO request,  HttpServletResponse response) {
+		logger.info(request.getUsername());
+		this.doAuthenticate(request.getUsername(), request.getPassword());
+
+		UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
+		String token = this.helper.generateToken(userDetails);
+		logger.info(token);
+//		JwtResponseDTO response = JwtResponseDTO.builder().jwtToken(token).username(userDetails.getUsername()).build();
+//	    String token = jwtService.generateToken(loginRequest);
+	    Cookie cookie = new Cookie("auth-token", token);
+	    cookie.setHttpOnly(true);
+	    cookie.setSecure(true); // Use only over HTTPS
+	    cookie.setPath("/"); // Available for all endpoints
+	    cookie.setMaxAge(24 * 60 * 60); // 1 day
+	    cookie.setDomain("localhost");
+	    response.addCookie(cookie);
+	    return ResponseEntity.ok("Login successful!");
+//		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+	@PostMapping("/register")
+	public ResponseEntity<String> registerUser(@RequestBody RegisterDto registerDto) {
+        try {
+            String message = registrationService.registerUser(
+                registerDto.getUsername(),
+                registerDto.getPassword()
+            );
+            
+            
+            return ResponseEntity.ok(message);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+	private void doAuthenticate(String username, String password) {
+
+		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username, password);
+		try {
+			manager.authenticate(authentication);
+
+		} catch (BadCredentialsException e) {
+			throw new BadCredentialsException(" Invalid Username or Password  !!");
+		}
+
+	}
+
+	@ExceptionHandler(BadCredentialsException.class)
+	public String exceptionHandler() {
+		return "Credentials Invalid !!";
+	}
+
+}
