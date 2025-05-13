@@ -1,4 +1,4 @@
-package com.example.demo.sevices;
+package com.example.demo.services;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -144,15 +144,13 @@ public class TransactionService {
 	}
 
 	public Optional<List<BookDto>> getAllTransactionByStudentAndReturnDate(Student student) {
-		System.out.println("I m here in service");
-		Student studentInstance = studentService.getByName(student.getName());
-		System.out.println("I m here in service student Instance mil gya");
-		Optional<List<Transaction>> transactionList = transRepo.findByStudentAndReturnDate(studentInstance, null);
-		System.out.println("I m here in service transaction list mil gyi");
-		Optional<List<BookDto>> bookList = Optional.ofNullable(
-				transactionList.get().stream().map(transaction ->modelMapper.map(transaction.getBook(), BookDto.class) ).collect(Collectors.toList()));
-		System.out.println("I m here in service Bhai book list bhi create ho gyi");
 
+		Student studentInstance = studentService.getByName(student.getName());
+
+		Optional<List<Transaction>> transactionList = transRepo.findByStudentAndReturnDate(studentInstance, null);
+		
+		Optional<List<BookDto>> bookList = Optional.ofNullable(
+		transactionList.get().stream().map(transaction ->modelMapper.map(transaction.getBook(), BookDto.class) ).collect(Collectors.toList()));
 		return bookList;
 	}
 

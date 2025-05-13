@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dtos.TransactionDto;
 import com.example.demo.entites.Transaction;
-import com.example.demo.sevices.TransactionService;
+import com.example.demo.services.TransactionService;
 
 @RestController
 public class TransactionController {
