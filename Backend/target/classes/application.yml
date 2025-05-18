@@ -1,0 +1,35 @@
+server:
+  port: 8082
+
+
+spring:
+  application:
+    name: lib-mng
+
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/lib_mng_db
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  cloud:
+    loadbalancer:
+      enabled: true
+
+eureka:
+
+  instance:
+    prefer-ip-address: true
+  client:
+    enabled: true
+    fetch-registry: true
+    register-with-eureka: true
+
+
+
