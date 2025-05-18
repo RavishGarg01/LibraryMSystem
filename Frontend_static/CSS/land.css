@@ -1,0 +1,26 @@
+*{
+    margin: 0;
+    padding: 0;
+   
+}
+
+.container{
+    /* background-color: skyblue; */
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    align-items: center;
+    justify-content: center;
+    /* flex-direction: row; */
+    margin: 20px;
+    height: 80vh;
+}
+.card{
+    margin: 20px;
+    
+}
+.card img{
+    height: 250px;
+    /* padding: 2px; */
+    border: 2px solid red;
+}
