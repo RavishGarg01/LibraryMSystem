@@ -1,17 +1,19 @@
 package com.example.demo.services;
 
-
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dtos.BookDto;
+import com.example.demo.dtos.TransactionDto;
 import com.example.demo.entites.Book;
+import com.example.demo.entites.Transaction;
 import com.example.demo.repositories.BookRepo;
 
 @Service
@@ -29,6 +31,16 @@ public class BookService {
 		book.setIsissued(false);
 		this.bookRepo.save(book);
 		return String.valueOf(book.getBookId());
+	}
+
+	public List<String> addMultipleBooks(List<BookDto> bookDtos) {
+       return  bookDtos.stream().map(b->{
+			Book book = modelMapper.map(b, Book.class);
+			book.setIsissued(false);
+			this.bookRepo.save(book);
+			return String.valueOf(book.getBookId());
+		}).collect(Collectors.toList());
+
 	}
 	
 	public String updateBook(int id, BookDto bookDto) {

@@ -63,7 +63,7 @@ public class StudentController {
 		}
 	}
 
-	@PutMapping("/student/{id}")
+	@PutMapping("student/{id}")
 	public ResponseEntity<String> updateStudentInfo(@PathVariable("id") int id, @RequestBody StudentDto studentDto) {
 		try {
 			String status = this.studentService.UpdateStudent(id, studentDto);
@@ -84,7 +84,7 @@ public class StudentController {
 		}
 	}
 
-	@GetMapping("/student/books")
+	@PostMapping("/student/books")
 	public ResponseEntity<Optional<List<BookDto>>> issuedBooks(@RequestBody Student studentDto) {
 		try {
 			System.out.println("I m here in contoller");
@@ -99,5 +99,5 @@ public class StudentController {
 	public List<Student> searchBooks(@RequestBody StudentDto studentDto) {
 		return studentService.searchByApproxName(studentDto.getName());
 	}
-	
+
 }

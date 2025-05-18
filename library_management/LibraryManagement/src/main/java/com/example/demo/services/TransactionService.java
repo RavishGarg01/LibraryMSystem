@@ -20,8 +20,6 @@ import com.example.demo.repositories.BookRepo;
 import com.example.demo.repositories.StudentRepo;
 import com.example.demo.repositories.TransRepo;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
-
 @Service
 public class TransactionService {
 

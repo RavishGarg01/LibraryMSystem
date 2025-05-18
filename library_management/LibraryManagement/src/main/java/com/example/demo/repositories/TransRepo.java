@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.demo.dtos.BookDto;
 import com.example.demo.entites.Book;
 import com.example.demo.entites.Student;
 import com.example.demo.entites.Transaction;
